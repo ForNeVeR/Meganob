@@ -4,9 +4,9 @@ SPDX-FileCopyrightText: 2024-2025 Friedrich von Never <friedrich@fornever.me>
 SPDX-License-Identifier: MIT
 -->
 
-FVNeverDotNetTemplate [![Status Zero][status-zero]][andivionian-status-classifier] [![FVNeverDotNetTemplate on nuget.org][nuget.badge]][nuget]
+Meganob [![Status Zero][status-zero]][andivionian-status-classifier] [![Meganob on nuget.org][nuget.badge]][nuget]
 ========
-FVNeverDotNetTemplate is a fresh project deployed from a repository template.
+Meganob is a fresh project deployed from a repository template.
 
 Documentation
 -------------
@@ -23,10 +23,10 @@ The license indication in the project's sources is compliant with the [REUSE spe
 
 [andivionian-status-classifier]: https://andivionian.fornever.me/v1/#status-zero-
 [status-zero]: https://img.shields.io/badge/status-zero-lightgrey.svg
-[nuget.badge]: https://img.shields.io/nuget/v/FVNeverDotNetTemplate
-[nuget]: https://www.nuget.org/packages/FVNeverDotNetTemplate
+[nuget.badge]: https://img.shields.io/nuget/v/Meganob
+[nuget]: https://www.nuget.org/packages/Meganob
 [reuse]: https://reuse.software/
-[docs]: https://FVNeverDotNetTemplateOwner.github.io/FVNeverDotNetTemplate
+[docs]: https://fornever.github.io/Meganob
 [docs.changelog]: CHANGELOG.md
 [docs.contributing]: CONTRIBUTING.md
 [docs.license]: LICENSE.txt

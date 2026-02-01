@@ -1,5 +1,5 @@
 <!--
-SPDX-FileCopyrightText: 2025 Friedrich von Never <friedrich@fornever.me>
+SPDX-FileCopyrightText: 2025-2026 Friedrich von Never <friedrich@fornever.me>
 
 SPDX-License-Identifier: MIT
 -->
@@ -7,12 +7,12 @@ SPDX-License-Identifier: MIT
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-      <PackageDescription>FVNeverDotNetTemplate Description.</PackageDescription>
+      <PackageDescription>Build system with task dependency tracking.</PackageDescription>
       <IsPackable>true</IsPackable>
   </PropertyGroup>
 
   <PropertyGroup>
-    <TargetFramework>net9.0</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>

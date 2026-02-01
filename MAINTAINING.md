@@ -27,7 +27,7 @@ To update the key:
 
 1. Sign in onto nuget.org.
 2. Go to the [API keys][nuget.api-keys] section.
-3. Update the existing or create a new key named `ForNeVeR.Meganob.github` with a permission to **Push only new package versions** and only allowed to publish the package **Meganob**.
+3. Update the existing or create a new key named `meganob.github` with a permission to **Push only new package versions** and only allowed to publish the package **Meganob**.
 
    (If this is the first publication of a new package, upload a temporary short-living key with permission to add new packages, and rotate it afterward.)
 4. Paste the generated key to the `NUGET_TOKEN` variable on the [action secrets][github.secrets] section of GitHub settings.

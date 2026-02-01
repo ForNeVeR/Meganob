@@ -5,7 +5,7 @@
                 {
                     "src": "..",
                     "files": [
-                        "Meganob/Meganob.csproj"
+                        "publish/Meganob*.dll"
                     ]
                 }
             ],

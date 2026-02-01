@@ -38,6 +38,8 @@ jobs:
         path: ${{ env.NUGET_PACKAGES }}
     - name: Set up .NET tools
       run: dotnet tool restore
+    - name: Publish the project
+      run: dotnet publish -o publish
     - name: Build the documentation
       run: dotnet docfx docs/docfx.json
     - name: Upload artifact

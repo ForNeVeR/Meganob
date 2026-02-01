@@ -92,6 +92,10 @@ let workflows = [
                 run = "dotnet tool restore"
             )
             step(
+                name = "Publish the project",
+                run = "dotnet publish -o publish"
+            )
+            step(
                 name = "Validate docfx",
                 run = "dotnet docfx docs/docfx.json --warningsAsErrors"
             )
@@ -194,6 +198,10 @@ let workflows = [
             step(
                 name = "Set up .NET tools",
                 run = "dotnet tool restore"
+            )
+            step(
+                name = "Publish the project",
+                run = "dotnet publish -o publish"
             )
             step(
                 name = "Build the documentation",

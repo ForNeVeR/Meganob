@@ -16,7 +16,7 @@ on:
     - main
   schedule:
   - cron: 0 0 * * 6
-  workflow_dispatch:
+  workflow_dispatch: 
 jobs:
   nuget:
     permissions:

@@ -17,4 +17,8 @@ SPDX-License-Identifier: MIT
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Include="Class1.fs" />
+  </ItemGroup>
+
 </Project>

@@ -6,7 +6,7 @@ SPDX-License-Identifier: MIT
 
 Meganob [![Status Zero][status-zero]][andivionian-status-classifier] [![Meganob on nuget.org][nuget.badge]][nuget]
 ========
-Meganob is a fresh project deployed from a repository template.
+Meganob is a build system with task dependency tracking.
 
 Documentation
 -------------

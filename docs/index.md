@@ -10,4 +10,4 @@ SPDX-License-Identifier: MIT
 
 Meganob
 =======
-Meganob is a fresh project deployed from a repository template.
+Meganob is a build system with task dependency tracking.

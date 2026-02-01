@@ -159,7 +159,7 @@ let workflows = [
                 name = "Upload artifacts",
                 usesSpec = Auto "actions/upload-artifact",
                 options = Map.ofList [
-                    "path", "./release-notes.md\n./Meganob/bin/Release/Meganob.${{ steps.version.outputs.version }}.nupkg\n./Meganob/bin/Release/Meganob.${{ steps.version.outputs.version }}.snupkg"
+                    "path", "./release-notes.md\n./Meganob/bin/Release/FVNever.Meganob.${{ steps.version.outputs.version }}.nupkg\n./Meganob/bin/Release/FVNever.Meganob.${{ steps.version.outputs.version }}.snupkg"
                 ]
             )
             step(
@@ -168,14 +168,14 @@ let workflows = [
                 usesSpec = Auto "softprops/action-gh-release",
                 options = Map.ofList [
                     "body_path", "./release-notes.md"
-                    "files", "./Meganob/bin/Release/Meganob.${{ steps.version.outputs.version }}.nupkg\n./Meganob/bin/Release/Meganob.${{ steps.version.outputs.version }}.snupkg"
+                    "files", "./Meganob/bin/Release/FVNever.Meganob.${{ steps.version.outputs.version }}.nupkg\n./Meganob/bin/Release/FVNever.Meganob.${{ steps.version.outputs.version }}.snupkg"
                     "name", "Meganob v${{ steps.version.outputs.version }}"
                 ]
             )
             step(
                 condition = "startsWith(github.ref, 'refs/tags/v')",
                 name = "Push artifact to NuGet",
-                run = "dotnet nuget push ./Meganob/bin/Release/Meganob.${{ steps.version.outputs.version }}.nupkg --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.NUGET_TOKEN }}"
+                run = "dotnet nuget push ./Meganob/bin/Release/FVNever.Meganob.${{ steps.version.outputs.version }}.nupkg --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.NUGET_TOKEN }}"
             )
         ]
     ]

@@ -50,17 +50,17 @@ jobs:
       with:
         path: |-
           ./release-notes.md
-          ./Meganob/bin/Release/Meganob.${{ steps.version.outputs.version }}.nupkg
-          ./Meganob/bin/Release/Meganob.${{ steps.version.outputs.version }}.snupkg
+          ./Meganob/bin/Release/FVNever.Meganob.${{ steps.version.outputs.version }}.nupkg
+          ./Meganob/bin/Release/FVNever.Meganob.${{ steps.version.outputs.version }}.snupkg
     - if: startsWith(github.ref, 'refs/tags/v')
       name: Create a release
       uses: softprops/action-gh-release@v2
       with:
         body_path: ./release-notes.md
         files: |-
-          ./Meganob/bin/Release/Meganob.${{ steps.version.outputs.version }}.nupkg
-          ./Meganob/bin/Release/Meganob.${{ steps.version.outputs.version }}.snupkg
+          ./Meganob/bin/Release/FVNever.Meganob.${{ steps.version.outputs.version }}.nupkg
+          ./Meganob/bin/Release/FVNever.Meganob.${{ steps.version.outputs.version }}.snupkg
         name: Meganob v${{ steps.version.outputs.version }}
     - if: startsWith(github.ref, 'refs/tags/v')
       name: Push artifact to NuGet
-      run: dotnet nuget push ./Meganob/bin/Release/Meganob.${{ steps.version.outputs.version }}.nupkg --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.NUGET_TOKEN }}
+      run: dotnet nuget push ./Meganob/bin/Release/FVNever.Meganob.${{ steps.version.outputs.version }}.nupkg --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.NUGET_TOKEN }}

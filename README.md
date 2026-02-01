@@ -23,8 +23,8 @@ The license indication in the project's sources is compliant with the [REUSE spe
 
 [andivionian-status-classifier]: https://andivionian.fornever.me/v1/#status-zero-
 [status-zero]: https://img.shields.io/badge/status-zero-lightgrey.svg
-[nuget.badge]: https://img.shields.io/nuget/v/Meganob
-[nuget]: https://www.nuget.org/packages/Meganob
+[nuget.badge]: https://img.shields.io/nuget/v/FVNever.Meganob
+[nuget]: https://www.nuget.org/packages/FVNever.Meganob
 [reuse]: https://reuse.software/
 [docs]: https://fornever.github.io/Meganob
 [docs.changelog]: CHANGELOG.md

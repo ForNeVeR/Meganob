@@ -55,7 +55,7 @@ type internal CacheManager(config: CacheConfig) =
                 let doc = JsonDocument.Parse(json)
                 let root = doc.RootElement
                 return Some {
-                    CacheKeyHash = root.GetProperty("CacheKeyHash").GetString()
+                    CacheKeyHash = nonNull <| root.GetProperty("CacheKeyHash").GetString()
                     LastAccessed = root.GetProperty("LastAccessed").GetDateTimeOffset()
                 }
             with

@@ -16,7 +16,7 @@ let FindExecutable(): AbsolutePath option =
     let split(s: string) = s.Split(Path.PathSeparator, StringSplitOptions.RemoveEmptyEntries)
 
     let extensions =
-        (if OperatingSystem.IsWindows() then Environment.GetEnvironmentVariable "PATHEXT" else "") |> split
+        (if OperatingSystem.IsWindows() then nonNull <| Environment.GetEnvironmentVariable "PATHEXT" else "") |> split
     let resolveExecutableFile(p: AbsolutePath) =
         if p.ExistsFile() // NOTE: Here we ignore check for exe bit on Unix for simplicity
         then Some p
@@ -25,7 +25,7 @@ let FindExecutable(): AbsolutePath option =
             |> Seq.map p.WithExtension
             |> Seq.tryFind _.ExistsFile()
 
-    let path = Environment.GetEnvironmentVariable "PATH"
+    let path = nonNull <| Environment.GetEnvironmentVariable "PATH"
     let folders = path.Split(Path.PathSeparator, StringSplitOptions.RemoveEmptyEntries)
     let defaultLocations =
         if OperatingSystem.IsWindows() then [|AbsolutePath "C:\DOSBox-X"|]
@@ -43,7 +43,7 @@ let FindExecutable(): AbsolutePath option =
     |> Seq.tryHead
 
 let private RunProcess(executable: AbsolutePath, args: string seq): Task<CommandResult> =
-    let args = args |> Seq.map box |> Seq.toArray
+    let args = args |> Seq.map(nonNull << box) |> Seq.toArray
     Command.Run(executable.Value, arguments = args).Task
 
 let RunCommands(dosBox: AbsolutePath, commands: string seq, silent: bool, logger: string -> unit) = task {

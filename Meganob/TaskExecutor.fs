@@ -106,6 +106,7 @@ let Execute(context: BuildContext, rootTask: BuildTask): Task<IArtifact> =
     context.Reporter.WithProgress(
         $"Executing {rootTask.Name}",
         int64 allTasks.Count,
+        #nowarn 3511
         fun progress -> task {
             // Process tasks as they become ready
             let rec processLoop () = task {
@@ -127,4 +128,5 @@ let Execute(context: BuildContext, rootTask: BuildTask): Task<IArtifact> =
             do! processLoop ()
             return! tcs.Task
         }
+        #warnon 3511
     )

@@ -6,20 +6,38 @@ SPDX-License-Identifier: MIT
 
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-      <PackageId>FVNever.Meganob</PackageId>
-      <PackageDescription>Build system with task dependency tracking.</PackageDescription>
-      <IsPackable>true</IsPackable>
-  </PropertyGroup>
+    <PropertyGroup>
+        <PackageId>FVNever.Meganob</PackageId>
+        <PackageDescription>Build system with task dependency tracking.</PackageDescription>
+    </PropertyGroup>
 
-  <PropertyGroup>
-    <TargetFramework>net10.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-  </PropertyGroup>
+    <PropertyGroup>
+        <TargetFramework>net10.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <IsPackable>true</IsPackable>
+    </PropertyGroup>
 
-  <ItemGroup>
-    <Compile Include="Class1.fs" />
-  </ItemGroup>
+    <ItemGroup>
+        <Compile Include="AssemblyInfo.fs" />
+        <Compile Include="Hash.fs" />
+        <Compile Include="Reporter.fs" />
+        <Compile Include="Abstractions.fs" />
+        <Compile Include="BuildContext.fs" />
+        <Compile Include="BuildTask.fs" />
+        <Compile Include="Artifacts.fs" />
+        <Compile Include="CacheConfig.fs" />
+        <Compile Include="CacheManager.fs" />
+        <Compile Include="TaskExecutor.fs" />
+        <Compile Include="BuildSystem.fs" />
+        <Compile Include="Tasks.fs" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Spectre.Console" Version="0.54.0" />
+        <PackageReference Include="TruePath" Version="1.11.0" />
+        <PackageReference Include="TruePath.SystemIo" Version="1.11.0" />
+    </ItemGroup>
 
 </Project>

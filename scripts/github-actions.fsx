@@ -12,7 +12,6 @@ open Generaptor.GitHubActions
 open type Generaptor.GitHubActions.Commands
 
 let workflows = [
-
     let workflow name steps =
         workflow name [
             header licenseHeader
@@ -222,4 +221,5 @@ let workflows = [
         ]
     ]
 ]
+
 exit <| EntryPoint.Process fsi.CommandLineArgs workflows

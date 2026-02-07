@@ -34,10 +34,12 @@
     <File Path="CONTRIBUTING.md" />
     <File Path="LICENSE.txt" />
     <File Path="MAINTAINING.md" />
-    <File Path="README.md" />
     <File Path="REUSE.toml" />
     <File Path="global.json" />
     <File Path="global.json.license" />
+    <File Path="README.md" />
   </Folder>
-  <Project Path="Meganob\Meganob.fsproj" Type="F#" />
+  <Project Path="Meganob\Meganob.fsproj" />
+  <Project Path="Example/Example.fsproj" />
+  <Project Path="Meganob.Tests\Meganob.Tests.fsproj" />
 </Solution>

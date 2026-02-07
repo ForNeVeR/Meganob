@@ -9,7 +9,7 @@ Contributor Guide
 
 Prerequisites
 -------------
-To work with the project, you'll need [.NET SDK 9][dotnet-sdk] or later.
+To work with the project, you'll need [.NET SDK 10][dotnet-sdk] or later.
 
 Build
 -----

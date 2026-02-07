@@ -1,0 +1,31 @@
+<!--
+SPDX-FileCopyrightText: 2026 Friedrich von Never <friedrich@fornever.me>
+
+SPDX-License-Identifier: MIT
+-->
+
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>net10.0</TargetFramework>
+        <IsPackable>false</IsPackable>
+        <IsPublishable>false</IsPublishable>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <Compile Include="DosBoxX.fs" />
+        <Compile Include="Program.fs" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="MedallionShell" Version="1.6.2" />
+      <PackageReference Include="TruePath" Version="1.11.0" />
+      <PackageReference Include="TruePath.SystemIo" Version="1.11.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Meganob\Meganob.fsproj" />
+    </ItemGroup>
+
+</Project>

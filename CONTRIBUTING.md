@@ -3,30 +3,40 @@ SPDX-FileCopyrightText: 2024-2026 Friedrich von Never <friedrich@fornever.me>
 
 SPDX-License-Identifier: MIT
 -->
+
 Contributor Guide
 =================
 
 Prerequisites
 -------------
-To work with the project, you'll need the following software:
-- [.NET SDK 10][dotnet-sdk] or later,
-- [DOSBox-X][dosbox-x].
+To work with the project, you'll need [.NET SDK 10][dotnet-sdk] or later.
 
 Build
 -----
-To build the game, use the following command:
+Use the following shell command:
+
 ```console
-$ dotnet run --project Build
+$ dotnet build
 ```
 
-This will use a downloaded Borland C++ 3.1 compiler in an isolated DOSBox-X environment.
+Test
+----
+Use the following shell command:
 
-It will produce a DOS-compatible game binary and resource bundle in the `out` folder.
+```console
+$ dotnet test
+```
 
-### Manual Build
-1. Make sure you have Borland C++ installed in `C:\BC` in your DOSBox (otherwise, you'll need to change the include and library paths in the `.PRJ` file).
-2. `BC BALLER.PRJ`
-3. **Build All**.
+Test Documentation
+------------------
+To open the project documentation site locally, use the following shell commands:
+```console
+$ dotnet tool restore
+$ dotnet publish -o publish
+$ dotnet docfx docs/docfx.json --serve
+```
+
+Then, open http://localhost:8080/ and browse the documentation.
 
 License Automation
 ------------------
@@ -43,7 +53,7 @@ If the CI asks you to update the file licenses, follow one of these:
    $ reuse annotate --license MIT --copyright '%your name% <%your contact info, e.g. email%>' %file names to annotate%
    ```
 
-(Feel free to attribute the changes to "The Last Eichhof contributors <https://github.com/ForNeVeR/the-last-eichhof>" instead of your name in a multi-author file, or if you don't want your name to be mentioned in the project's source: this doesn't mean you'll lose the copyright.)
+(Feel free to attribute the changes to "Meganob contributors <https://github.com/ForNeVeR/Meganob>" instead of your name in a multi-author file, or if you don't want your name to be mentioned in the project's source: this doesn't mean you'll lose the copyright.)
 
 File Encoding Changes
 ---------------------
@@ -66,3 +76,4 @@ $ dotnet fsi scripts/github-actions.fsx
 [dosbox-x]: https://dosbox-x.com/
 [dotnet-sdk]: https://dotnet.microsoft.com/en-us/download
 [powershell]: https://learn.microsoft.com/en-us/powershell/scripting/install/installing-powershell
+[reuse]: https://reuse.software/

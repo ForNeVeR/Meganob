@@ -6,23 +6,24 @@ let licenseHeader = """
 # This file is auto-generated.""".Trim()
 
 #r "nuget: Generaptor.Library, 1.9.1"
+
 open Generaptor
 open Generaptor.GitHubActions
 open type Generaptor.GitHubActions.Commands
 
 let workflows = [
-    workflow "main" [
-        header licenseHeader
-        name "Main"
-        onPushTo "main"
-        onPullRequestTo "main"
-        onSchedule "0 0 * * 6"
-        onWorkflowDispatch
+    let workflow name steps =
+        workflow name [
+            header licenseHeader
+            yield! steps
+        ]
 
-        let dotNetJob name body = job name [
+    let dotNetJob id steps =
+        job id [
             setEnv "DOTNET_CLI_TELEMETRY_OPTOUT" "1"
             setEnv "DOTNET_NOLOGO" "1"
             setEnv "NUGET_PACKAGES" "${{ github.workspace }}/.github/nuget-packages"
+
             step(
                 name = "Check out the sources",
                 usesSpec = Auto "actions/checkout"
@@ -40,33 +41,68 @@ let workflows = [
                 ]
             )
 
-            yield! body
+            yield! steps
         ]
+
+    let mainTriggers = [
+        onPushTo "main"
+        onPushTo "renovate/**"
+        onPullRequestTo "main"
+        onSchedule "0 0 * * 6"
+        onWorkflowDispatch
+    ]
+
+    workflow "main" [
+        name "Main"
+        yield! mainTriggers
 
         dotNetJob "verify-workflows" [
             runsOn "ubuntu-24.04"
+            step(run = "dotnet fsi ./scripts/github-actions.fsx verify")
+        ]
+
+        dotNetJob "check" [
+            strategy(failFast = false, matrix = [
+                "image", [
+                    "macos-15"
+                    "ubuntu-24.04"
+                    "ubuntu-24.04-arm"
+                    "windows-11-arm"
+                    "windows-2025"
+                ]
+            ])
+            runsOn "${{ matrix.image }}"
+
             step(
-                run = "dotnet fsi ./scripts/github-actions.fsx verify"
+                name = "Build",
+                run = "dotnet build"
+            )
+            step(
+                name = "Test",
+                run = "dotnet test",
+                timeoutMin = 10
             )
         ]
 
-        let pwsh(name, command) =
-            step(
-                name = name,
-                shell = "pwsh",
-                run = command
-            )
-
-        job "encoding" [
+        dotNetJob "check-docs" [
             runsOn "ubuntu-24.04"
             step(
-                name = "Check out the sources",
-                usesSpec = Auto "actions/checkout"
+                name = "Restore dotnet tools",
+                run = "dotnet tool restore"
             )
-            pwsh(
-                "Verify encoding",
-                "Install-Module VerifyEncoding -Repository PSGallery -RequiredVersion 2.2.1 -Force && Test-Encoding"
+            step(
+                name = "Publish the project",
+                run = "dotnet publish -o publish"
             )
+            step(
+                name = "Validate docfx",
+                run = "dotnet docfx docs/docfx.json --warningsAsErrors"
+            )
+        ]
+
+        dotNetJob "check-all-warnings" [ // separate check not bothering the local compilation
+            runsOn "ubuntu-24.04"
+            step(name = "Verify with full warning check", run = "dotnet build -p:AllWarningsMode=true")
         ]
 
         job "licenses" [
@@ -81,56 +117,106 @@ let workflows = [
             )
         ]
 
-        let mainLinuxImage = "ubuntu-24.04"
-
-        let runOnAllImages = [
-            strategy(failFast = false, matrix = [
-                "image", [
-                    "macos-15"
-                    mainLinuxImage
-                    "ubuntu-24.04-arm"
-                    "windows-11-arm"
-                    "windows-2025"
-                ]
-            ])
-            runsOn "${{ matrix.image }}"
-        ]
-
-        dotNetJob "meganob-tests" [
-            yield! runOnAllImages
-            pwsh(
-                "Run tests",
-                "dotnet test"
-            )
-        ]
-
-        dotNetJob "build" [
-            yield! runOnAllImages
-            setEnv "MEGANOB_CACHE_BASE" "${{ github.workspace }}/.meganob"
-
-            pwsh(
-                "Install DOSBox-X",
-                "scripts/Install-DOSBox-X.ps1"
+        job "encoding" [
+            runsOn "ubuntu-24.04"
+            step(
+                name = "Check out the sources",
+                usesSpec = Auto "actions/checkout"
             )
             step(
-                name = "Build system cache",
-                usesSpec = Auto "actions/cache",
+                name = "Verify encoding",
+                shell = "pwsh",
+                run = "Install-Module VerifyEncoding -Repository PSGallery -RequiredVersion 2.2.1 -Force && Test-Encoding"
+            )
+        ]
+    ]
+
+    workflow "release" [
+        name "Release"
+        yield! mainTriggers
+        onPushTags "v*"
+        dotNetJob "nuget" [
+            jobPermission(PermissionKind.Contents, AccessKind.Write)
+            runsOn "ubuntu-24.04"
+            step(
+                id = "version",
+                name = "Get version",
+                shell = "pwsh",
+                run = "echo \"version=$(scripts/Get-Version.ps1 -RefName $env:GITHUB_REF)\" >> $env:GITHUB_OUTPUT"
+            )
+            step(
+                run = "dotnet pack --configuration Release -p:Version=${{ steps.version.outputs.version }}"
+            )
+            step(
+                name = "Read changelog",
+                usesSpec = Auto "ForNeVeR/ChangelogAutomation.action",
                 options = Map.ofList [
-                    "key", "${{ runner.os }}.meganob.v1"
-                    "path", "${{ env.MEGANOB_CACHE_BASE }}"
+                    "output", "./release-notes.md"
                 ]
             )
-            pwsh(
-                "Build the game",
-                "dotnet run --project Build -- --verbose"
-            )
             step(
-                condition = "${{ matrix.image == '" + mainLinuxImage + "' }}",
-                name = "Upload the game",
+                name = "Upload artifacts",
                 usesSpec = Auto "actions/upload-artifact",
                 options = Map.ofList [
-                    "path", "out/*"
+                    "path", "./release-notes.md\n./Meganob/bin/Release/FVNever.Meganob.${{ steps.version.outputs.version }}.nupkg\n./Meganob/bin/Release/FVNever.Meganob.${{ steps.version.outputs.version }}.snupkg"
                 ]
+            )
+            step(
+                condition = "startsWith(github.ref, 'refs/tags/v')",
+                name = "Create a release",
+                usesSpec = Auto "softprops/action-gh-release",
+                options = Map.ofList [
+                    "body_path", "./release-notes.md"
+                    "files", "./Meganob/bin/Release/FVNever.Meganob.${{ steps.version.outputs.version }}.nupkg\n./Meganob/bin/Release/FVNever.Meganob.${{ steps.version.outputs.version }}.snupkg"
+                    "name", "Meganob v${{ steps.version.outputs.version }}"
+                ]
+            )
+            step(
+                condition = "startsWith(github.ref, 'refs/tags/v')",
+                name = "Push artifact to NuGet",
+                run = "dotnet nuget push ./Meganob/bin/Release/FVNever.Meganob.${{ steps.version.outputs.version }}.nupkg --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.NUGET_TOKEN }}"
+            )
+        ]
+    ]
+
+    workflow "docs" [
+        name "Docs"
+        onPushTo "main"
+        onWorkflowDispatch
+        workflowPermission(PermissionKind.Actions, AccessKind.Read)
+        workflowPermission(PermissionKind.Pages, AccessKind.Write)
+        workflowPermission(PermissionKind.IdToken, AccessKind.Write)
+        workflowConcurrency(
+            group = "pages",
+            cancelInProgress = false
+        )
+        dotNetJob "publish-docs" [
+            environment(name = "github-pages", url = "${{ steps.deployment.outputs.page_url }}")
+            runsOn "ubuntu-24.04"
+
+            step(
+                name = "Set up .NET tools",
+                run = "dotnet tool restore"
+            )
+            step(
+                name = "Publish the project",
+                run = "dotnet publish -o publish"
+            )
+            step(
+                name = "Build the documentation",
+                run = "dotnet docfx docs/docfx.json"
+            )
+            step(
+                name = "Upload artifact",
+                usesSpec = Auto "actions/upload-pages-artifact",
+                options = Map.ofList [
+                    "path", "docs/_site"
+                ]
+            )
+            step(
+                name = "Deploy to GitHub Pages",
+                id = "deployment",
+                usesSpec = Auto "actions/deploy-pages"
             )
         ]
     ]

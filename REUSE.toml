@@ -1,10 +1,13 @@
 version = 1
-SPDX-PackageName = "the-last-eichhof"
+SPDX-PackageName = "Meganob"
 SPDX-PackageSupplier = "Friedrich von Never <friedrich@fornever.me>"
-SPDX-PackageDownloadLocation = "https://github.com/ForNeVeR/the-last-eichhof"
+SPDX-PackageDownloadLocation = "https://github.com/ForNeVeR/Meganob"
 
 [[annotations]]
-path = "*.DotSettings"
+path = [
+    ".idea/**/**",
+    "*.DotSettings"
+]
 precedence = "aggregate"
-SPDX-FileCopyrightText = "2026 Friedrich von Never <friedrich@fornever.me>"
+SPDX-FileCopyrightText = "2025-2026 Friedrich von Never <friedrich@fornever.me>"
 SPDX-License-Identifier = "MIT"

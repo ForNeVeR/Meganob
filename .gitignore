@@ -1,16 +1,19 @@
-# SPDX-FileCopyrightText: 2026 Friedrich von Never <friedrich@fornever.me>
+# SPDX-FileCopyrightText: 2025-2026 Friedrich von Never <friedrich@fornever.me>
 #
 # SPDX-License-Identifier: MIT
 
-# JetBrains Rider:
+# IDE files:
 /.idea/
-
-# .NET user properties files:
+/.vs/
 *.user
 
-# .NET build system:
+# Generated documentation:
+/docs/_site/
+/docs/api/
+
+# Project binaries:
 bin/
 obj/
 
-# Meganob output:
-out/
+# Publish folder used in the documentation flow:
+publish/

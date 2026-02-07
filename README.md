@@ -1,46 +1,19 @@
 <!--
-SPDX-FileCopyrightText: 1995 Dany Schoch <dschoch@stud.ee.ethz.ch>
-SPDX-FileCopyrightText: 2026 Friedrich von Never <friedrich@fornever.me>
-SPDX-License-Identifier: LicenseRef-TLE and MIT
+SPDX-FileCopyrightText: 2024-2026 Friedrich von Never <friedrich@fornever.me>
+
+SPDX-License-Identifier: MIT
 -->
 
-The Last Eichhof
-================
-
-**[The Last Eichhof][mobygames.tle]** is a space shooter-type game for DOS, originally developed in 1993 by the **[Alpha Helix Productions][mobygames.ahp]**. It was open-sourced by Dany Schoch sometime around 1995.
-
-Screenshots
------------
-![Game title screen][screenshot.title]
-
-![Game menu][screenshot.menu]
-
-![Stage 1 and first enemy encounter][screenshot.stage-1]
-
-Original game credits:
-
-![Graphix & fonts by Tweety, code & levels by Tritone][screenshot.credits-1]
-
-![Additional programming and music by Zynax of DarkSys][screenshot.credits-2]
-
-How to Play
------------
-The Last Eichhof is a DOS game, distributed as a 16-bit executable file for DOS. The recommended way of running it on a modern machine is via [DOSBox][dosbox] or [DOSBox-X][dosbox-x]. The instructions for running both are similar:
-1. Download the archive from the [Releases][releases] page.
-2. Extract the archive somewhere on your disk.
-3. Start DOSBox or DOSBos-X emulator.
-4. Type the following commands:
-
-   ```console
-   > mount c <full path where the game is on your host machine>
-   > c:
-   > baller
-   ```
-5. Enjoy the game!
+Meganob [![Status Zero][status-zero]][andivionian-status-classifier] [![Meganob on nuget.org][nuget.badge]][nuget]
+========
+Meganob is a build system with task dependency tracking.
 
 Documentation
 -------------
+- [Project Documentation Site (API Reference)][docs]
+- [Changelog][docs.changelog]
 - [Contributor Guide][docs.contributing]
+- [Maintainer Guide][docs.maintaining]
 
 A Word From the Original Author
 -------------------------------
@@ -62,20 +35,18 @@ Danny.
 
 License
 -------
+The project is distributed under the terms of [the MIT license][docs.license].
+
 The license indication in the project's sources is compliant with the [REUSE specification v3.3][reuse.spec].
 
-The main licenses present across the sources of this repository are [the MIT license][docs.license.mit] and [a custom permissive license][docs.license.tle].
-
+[andivionian-status-classifier]: https://andivionian.fornever.me/v1/#status-zero-
+[status-zero]: https://img.shields.io/badge/status-zero-lightgrey.svg
+[nuget.badge]: https://img.shields.io/nuget/v/FVNever.Meganob
+[nuget]: https://www.nuget.org/packages/FVNever.Meganob
+[reuse]: https://reuse.software/
+[docs]: https://fornever.github.io/Meganob
+[docs.changelog]: CHANGELOG.md
 [docs.contributing]: CONTRIBUTING.md
-[docs.license.mit]: LICENSES/MIT.txt
-[docs.license.tke]: LICENSES/LicenseRef-TLE.txt
-[dosbox-x]: https://dosbox-x.com/
-[dosbox]: https://www.dosbox.com/
-[mobygames.ahp]: https://www.mobygames.com/company/1020/alpha-helix-productions/
-[mobygames.tle]: https://www.mobygames.com/game/925/the-last-eichhof/
-[releases]: https://github.com/ForNeVeR/the-last-eichhof/releases
-[screenshot.credits-1]: docs/credits.1.png
-[screenshot.credits-2]: docs/credits.2.png
-[screenshot.menu]: docs/screen.menu.png
-[screenshot.stage-1]: docs/screen.stage-1.png
-[screenshot.title]: docs/screen.title.png
+[docs.license]: LICENSE.txt
+[docs.maintaining]: MAINTAINING.md
+[reuse.spec]: https://reuse.software/spec-3.3/

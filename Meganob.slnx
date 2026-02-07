@@ -39,6 +39,7 @@
     <File Path="global.json.license" />
     <File Path="README.md" />
   </Folder>
-  <Project Path="Meganob\Meganob.fsproj" Type="F#" />
-  <Project Path="Meganob.Tests\Meganob.Tests.fsproj" Type="F#" />
+  <Project Path="Meganob\Meganob.fsproj" />
+  <Project Path="Example/Example.fsproj" />
+  <Project Path="Meganob.Tests\Meganob.Tests.fsproj" />
 </Solution>

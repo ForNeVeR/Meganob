@@ -73,7 +73,6 @@ Then run the following shell command:
 $ dotnet fsi scripts/github-actions.fsx
 ```
 
-[dosbox-x]: https://dosbox-x.com/
 [dotnet-sdk]: https://dotnet.microsoft.com/en-us/download
 [powershell]: https://learn.microsoft.com/en-us/powershell/scripting/install/installing-powershell
 [reuse]: https://reuse.software/

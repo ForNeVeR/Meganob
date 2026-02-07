@@ -15,24 +15,6 @@ Documentation
 - [Contributor Guide][docs.contributing]
 - [Maintainer Guide][docs.maintaining]
 
-A Word From the Original Author
--------------------------------
-Most tools won't be useful to you because they are all
-programmed in a hurry. Bad or even not documented at all,
-only I know how to use them. (I hate them too, don't worry).
-The game source might be of better use to you. It's fairly good
-(however far from perfect) commented in the source.
-Just have a look at it. I think if you want to learn to
-programm graphics or sound you better have a look at some
-specialized packages not this one.
-
-Anyway, if you find this package useful send me a mail,
-well even send me a mail if you don't find it useful at all.
-I'm looking forward to hearing from you.
-
-dschoch@stud.ee.ethz.ch
-Danny.
-
 License
 -------
 The project is distributed under the terms of [the MIT license][docs.license].
